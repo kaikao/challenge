@@ -1,5 +1,7 @@
 <?php
 /**
+* Interview question of Google and Dropbox.
+*
 * If patter is "abba", input is "redbluebluered", your function should return 1, meant matched.
 * If patter is "aaaa", input is "redbluebluered", your function should return 0, meant not matched.
 * If patter is "aabb", input is "xyzabcxzyabc", your function should return 0.
