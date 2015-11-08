@@ -90,61 +90,31 @@ function search($pattern, $patternMapping, $str, $split, $start=0, $tmpIndex=0, 
 
 
 ////////////////////////////////// main ////////////////////////////////////////
-// 1
-$pattern = 'abba';
-$input = 'redbluebluered';
 
-// 2
-$pattern = 'aaaa';
-$input = 'redbluebluered';
-
-// 3
-$pattern = 'abcdb';
-$input = 'tobeornottobe';
-
-// 4
-$pattern = 'ababb';
-$input = 'tobeornottobe';
-
-// 5
-$pattern = 'aaa';
-$input = 'raiseraysraze';
-
-// 6
-$pattern = 'abcdeeeee';
-$input = 'onetwothreefourcowcowcowcowcow';
-
-// 7
-$pattern = 'abcdeeeee';
-$input = 'onetwothreefourcowcowcowcow';
-
-// 8
-$pattern = 'abcd';
-$input = 'thequickbrownfox';
-
-// 9
-$pattern = 'abba';
-$input = 'redredredred';
-
-// 10
-$pattern = 'aab';
-$input = '111111';
-
-// 11
-$pattern = 'abb';
-$input = '111111';
-
-// 12
-$pattern = 'abab';
-$input = '111111';
-
-echo "\n";
-$now = microtime(true);
-$isMatch = isMatchPattern($pattern, $input);
-$tookTime = microtime(true) - $now;
-if ($isMatch) {
-    echo "[Yes!!!]\n";
-} else {
-    echo "[No...]\n";
+$filename = dirname(__FILE__) . '/test.txt';
+$file = fopen($filename, 'r');
+if (!$file) {
+    throw new \Exception('Could not open file ' . $filename);
 }
-echo 'Took time: ' . $tookTime . " secs. \n\n";
+
+while (($line = fgets($file)) !== false) {
+    // get pattern and input from file
+    $line = str_replace("\n", "", $line);
+    $info = explode(',', $line);
+    $pattern = $info[0];
+    $input = $info[1];
+
+    // process
+    echo "\n";
+    $now = microtime(true);
+    $isMatch = isMatchPattern($pattern, $input);
+    $tookTime = microtime(true) - $now;
+    if ($isMatch) {
+        echo "[Yes!!!]\n";
+    } else {
+        echo "[No...]\n";
+    }
+    echo 'Took time: ' . $tookTime . " secs. \n\n";
+
+}
+fclose($file);
